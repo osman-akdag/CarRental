@@ -32,7 +32,7 @@ namespace Business.Concrete
 
         #endregion
 
-
+        #region Temel Ekleme-Silme-Güncelleme
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
@@ -43,12 +43,14 @@ namespace Business.Concrete
         {
             _colorDal.Delete(color);
             return new SuccessResult(Messages.ColorDeleted);
-        }  
-        
+        }
+
         public IResult Update(Color color)
         {
             _colorDal.Update(color);
             return new SuccessResult(Messages.ColorDeleted);
         }
+        #endregion
+
     }
 }

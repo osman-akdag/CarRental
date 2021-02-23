@@ -37,7 +37,7 @@ namespace Business.Concrete
 
         #endregion
 
-
+        #region Temel Ekleme-Silme-Güncelleme
         public IResult Add(Car car)
         {
             _carDal.Add(car);
@@ -55,5 +55,7 @@ namespace Business.Concrete
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
+        #endregion
+
     }
 }

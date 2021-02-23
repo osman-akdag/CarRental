@@ -18,6 +18,7 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
+        #region Listeleme Metotları
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
@@ -25,9 +26,11 @@ namespace Business.Concrete
 
         public IDataResult<Brand> GetById(int brandId)
         {
-            return new SuccessDataResult<Brand>(_brandDal.Get(p=>p.Id==brandId));
+            return new SuccessDataResult<Brand>(_brandDal.Get(p => p.Id == brandId));
         }
+        #endregion
 
+        #region Temel Ekleme-Silme-Güncelleme
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
@@ -45,5 +48,7 @@ namespace Business.Concrete
             _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
         }
+        #endregion
+
     }
 }
