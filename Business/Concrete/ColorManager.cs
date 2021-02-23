@@ -18,6 +18,8 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        #region Listeleme metotları
+
         public IDataResult<List<Color>> GetAll()
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
@@ -25,8 +27,11 @@ namespace Business.Concrete
 
         public IDataResult<Color> GetById(int colorId)
         {
-            return new SuccessDataResult<Color>(_colorDal.Get(p=>p.Id==colorId));
+            return new SuccessDataResult<Color>(_colorDal.Get(p => p.Id == colorId));
         }
+
+        #endregion
+
 
         public IResult Add(Color color)
         {

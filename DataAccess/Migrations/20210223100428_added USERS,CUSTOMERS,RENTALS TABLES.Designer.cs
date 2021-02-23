@@ -4,14 +4,16 @@ using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ReCapDatabaseContext))]
-    partial class ReCapDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210223100428_added USERS,CUSTOMERS,RENTALS TABLES")]
+    partial class addedUSERSCUSTOMERSRENTALSTABLES
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,7 +99,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Rental", b =>
@@ -125,7 +127,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Rentals");
+                    b.ToTable("Rental");
                 });
 
             modelBuilder.Entity("Entities.Concrete.User", b =>
@@ -149,7 +151,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Car", b =>

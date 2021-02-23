@@ -17,5 +17,8 @@ namespace Entities.Concrete
         public int ColorId { get; set; }
         public Brand Brand { get; set; }   
         public Color Color { get; set; }
+
+        // 1 araba 1 den çok kiralanabilir.
+        public List<Rental> Rentals { get; set; }
     }
 }
