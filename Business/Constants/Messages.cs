@@ -51,7 +51,7 @@ namespace Business.Constants
         public static string RentalDeleted { get; } = "Araba Kiralama Bilgileri Silindi.";
         public static string RentalUpdated { get; } = "Araba Kiralama Bilgileri Güncellendi.";
         public static string RentalNotFound { get; } = "Araba Kiralama Bilgisi Bulunamadı.";
-
+        public static string RentalReturnDateError { get; } = "Araba Teslim Edilmemiş.";
         #endregion
 
     }

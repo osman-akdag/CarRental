@@ -34,6 +34,12 @@ namespace Business.Concrete
         #region Temel Ekleme-Silme-Güncelleme
         public IResult Add(Rental rental)
         {
+            var result = _rentalDal.GetAll(p => p.CarId == rental.CarId && p.ReturnDate == null);
+            if (result.Count > 0)
+            {
+                return new ErrorResult(Messages.RentalReturnDateError);
+            }
+
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
