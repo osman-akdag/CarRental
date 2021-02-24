@@ -28,6 +28,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(p => p.Id == brandId));
         }
+
+        public IDataResult<List<Brand>> GetAllWithCars()
+        {
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAllWithCars());
+        }
+
         #endregion
 
         #region Temel Ekleme-Silme-Güncelleme
@@ -48,6 +54,8 @@ namespace Business.Concrete
             _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
         }
+
+        
         #endregion
 
     }

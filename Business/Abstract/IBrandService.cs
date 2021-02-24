@@ -10,6 +10,7 @@ namespace Business.Abstract
     {
         IDataResult<List<Brand>> GetAll();
         IDataResult<Brand> GetById(int brandId);
+        IDataResult<List<Brand>> GetAllWithCars();
         IResult Add(Brand brand);
         IResult Delete(Brand brand);
         IResult Update(Brand brand);
