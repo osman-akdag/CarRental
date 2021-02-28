@@ -11,57 +11,46 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BrandController : ControllerBase
+    public class ColorsController : ControllerBase
     {
-        private readonly IBrandService _brandService;
-        public BrandController(IBrandService brandService)
+        private readonly IColorService _colorService;
+
+        public ColorsController(IColorService colorService)
         {
-            _brandService = brandService;
+            _colorService = colorService;
         }
 
         [HttpGet("getAll")]
         public IActionResult GetAll()
         {
 
-            var result = _brandService.GetAll();
+            var result = _colorService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
 
-        }
-
-        [HttpGet("getAllWithCars")]
-        public IActionResult GetAllWithCars()
-        {
-
-            var result = _brandService.GetAllWithCars();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-
-        }
-
-        [HttpGet("getById")]
-        public IActionResult GetById(int id)
-        {
-            var result = _brandService.GetById(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
         }
 
         
-        [HttpPost("add")]
-        public IActionResult Add(Brand brand)
+        [HttpGet("getById")]
+        public IActionResult GetById(int id)
         {
-            var result = _brandService.Add(brand);
+            var result = _colorService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+
+        [HttpPost("add")]
+        public IActionResult Add(Color color)
+        {
+            var result = _colorService.Add(color);
             if (result.Success)
             {
                 return Ok(result);
@@ -70,9 +59,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Brand brand)
+        public IActionResult Update(Color color)
         {
-            var result = _brandService.Update(brand);
+            var result = _colorService.Update(color);
             if (result.Success)
             {
                 return Ok(result);
@@ -81,15 +70,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Brand brand)
+        public IActionResult Delete(Color color)
         {
-            var result = _brandService.Delete(brand);
+            var result = _colorService.Delete(color);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
     }
 }
