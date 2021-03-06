@@ -1,8 +1,10 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,10 +14,12 @@ namespace Business.Concrete
     public class BrandManager : IBrandService
     {
         private readonly IBrandDal _brandDal;
+        private readonly IMapper _mapper;
 
-        public BrandManager(IBrandDal brandDal)
+        public BrandManager(IBrandDal brandDal, IMapper mapper)
         {
             _brandDal = brandDal;
+            _mapper = mapper;
         }
 
         #region Listeleme Metotları
@@ -37,8 +41,10 @@ namespace Business.Concrete
         #endregion
 
         #region Temel Ekleme-Silme-Güncelleme
-        public IResult Add(Brand brand)
+        public IResult Add(BrandAddDto brandAddDto)
         {
+            //mapping
+            Brand brand = _mapper.Map<Brand>(brandAddDto);
             _brandDal.Add(brand);
             return new SuccessResult(Messages.BrandAdded);
         }
@@ -49,8 +55,10 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandDeleted);
         }
 
-        public IResult Update(Brand brand)
+        public IResult Update(BrandUpdateDto brandUpdateDto)
         {
+            //mapping
+            Brand brand = _mapper.Map<Brand>(brandUpdateDto);
             _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
         }

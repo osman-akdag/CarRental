@@ -1,4 +1,5 @@
 using Business.Abstract;
+using Business.AutoMapper.Profiles;
 using Business.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -45,6 +46,8 @@ namespace WebAPI
             services.AddSingleton<ICustomerService, CustomerManager>();
             services.AddSingleton<IRentalService, RentalManager>();
             services.AddSingleton<IUserService,UserManager>();
+
+            services.AddAutoMapper(typeof(BrandProfile));
 
             services.AddControllers().AddNewtonsoftJson(options =>
             {
