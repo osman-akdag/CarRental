@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -48,9 +49,9 @@ namespace WebAPI.Controllers
 
 
         [HttpPost("add")]
-        public IActionResult Add(User user)
+        public IActionResult Add(UserAddDto userAddDto)
         {
-            var result = _userService.Add(user);
+            var result = _userService.Add(userAddDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -59,9 +60,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(User user)
+        public IActionResult Update(UserUpdateDto userUpdateDto)
         {
-            var result = _userService.Update(user);
+            var result = _userService.Update(userUpdateDto);
             if (result.Success)
             {
                 return Ok(result);

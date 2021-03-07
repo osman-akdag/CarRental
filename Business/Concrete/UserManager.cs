@@ -1,8 +1,10 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,10 +14,12 @@ namespace Business.Concrete
     public class UserManager : IUserService
     {
         private readonly IUserDal _userDal;
+        private readonly IMapper _mapper;
 
-        public UserManager(IUserDal userDal)
+        public UserManager(IUserDal userDal, IMapper mapper)
         {
             _userDal = userDal;
+            _mapper = mapper;
         }
 
         #region Listeleme Metotları
@@ -31,8 +35,10 @@ namespace Business.Concrete
         #endregion
 
         #region Temel Ekleme-Silme-Güncelleme
-        public IResult Add(User user)
+        public IResult Add(UserAddDto userAddDto)
         {
+            //mapping
+            User user = _mapper.Map<User>(userAddDto);
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
@@ -43,8 +49,10 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserDeleted);
         }
 
-        public IResult Update(User user)
+        public IResult Update(UserUpdateDto userUpdateDto)
         {
+            //mapping
+           User user = _mapper.Map<User>(userUpdateDto);
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
