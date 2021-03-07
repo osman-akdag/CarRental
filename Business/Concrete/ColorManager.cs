@@ -1,8 +1,10 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,10 +14,12 @@ namespace Business.Concrete
     public class ColorManager : IColorService
     {
         private readonly IColorDal _colorDal;
+        private readonly IMapper _mapper;
 
-        public ColorManager(IColorDal colorDal)
+        public ColorManager(IColorDal colorDal, IMapper mapper)
         {
             _colorDal = colorDal;
+            _mapper = mapper;
         }
 
         #region Listeleme metotları
@@ -33,8 +37,10 @@ namespace Business.Concrete
         #endregion
 
         #region Temel Ekleme-Silme-Güncelleme
-        public IResult Add(Color color)
+        public IResult Add(ColorAddDto colorAddDto)
         {
+            //mapping
+            Color color = _mapper.Map<Color>(colorAddDto);
             _colorDal.Add(color);
             return new SuccessResult(Messages.ColorAdded);
         }
@@ -45,8 +51,10 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ColorDeleted);
         }
 
-        public IResult Update(Color color)
+        public IResult Update(ColorUpdateDto colorUpdateDto)
         {
+            //mapping
+            Color color = _mapper.Map<Color>(colorUpdateDto);
             _colorDal.Update(color);
             return new SuccessResult(Messages.ColorDeleted);
         }

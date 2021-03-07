@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,8 +11,8 @@ namespace Business.Abstract
     {
         IDataResult<List<Color>> GetAll();
         IDataResult<Color> GetById(int colorId);
-        IResult Add(Color color);
+        IResult Add(ColorAddDto colorAddDto);
         IResult Delete(Color color);
-        IResult Update(Color color);    
+        IResult Update(ColorUpdateDto colorUpdateDto);        
     }
 }
