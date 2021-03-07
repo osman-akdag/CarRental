@@ -1,8 +1,10 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,10 +14,12 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         private readonly IRentalDal _rentalDal;
+        private readonly IMapper _mapper;
 
-        public RentalManager(IRentalDal rentalDal)
+        public RentalManager(IRentalDal rentalDal, IMapper mapper)
         {
             _rentalDal = rentalDal;
+            _mapper = mapper;
         }
 
         #region Listeleme Metotları
@@ -32,14 +36,15 @@ namespace Business.Concrete
         #endregion
 
         #region Temel Ekleme-Silme-Güncelleme
-        public IResult Add(Rental rental)
+        public IResult Add(RentalAddDto rentalAddDto)
         {
-            var result = _rentalDal.GetAll(p => p.CarId == rental.CarId && p.ReturnDate == null);
+            var result = _rentalDal.GetAll(p => p.CarId == rentalAddDto.CarId && p.ReturnDate == null);
             if (result.Count > 0)
             {
                 return new ErrorResult(Messages.RentalReturnDateError);
             }
-
+            //mapper
+            Rental rental = _mapper.Map<Rental>(rentalAddDto);
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
@@ -51,8 +56,10 @@ namespace Business.Concrete
 
         }
 
-        public IResult Update(Rental rental)
+        public IResult Update(RentalUpdateDto rentalUpdateDto)
         {
+            //mapper
+            Rental rental = _mapper.Map<Rental>(rentalUpdateDto);
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
         }
