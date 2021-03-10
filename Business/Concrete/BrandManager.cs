@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -44,6 +46,7 @@ namespace Business.Concrete
         public IResult Add(BrandAddDto brandAddDto)
         {
             //mapping
+            //ValidationTool.Validate(new BrandAddDtoValidator(),brandAddDto);
             Brand brand = _mapper.Map<Brand>(brandAddDto);
             _brandDal.Add(brand);
             return new SuccessResult(Messages.BrandAdded);
