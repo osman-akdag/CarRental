@@ -11,6 +11,9 @@ namespace DataAccess.Concrete.EntityFramework.Mapping
             builder.HasKey(i => i.Id);
             builder.Property(i => i.Id).UseIdentityColumn();
 
+            builder.Property(i => i.CarId).IsRequired(false);
+            builder.Property(i => i.CustomerId).IsRequired(false);
+
             builder.Property(i => i.RentDate).IsRequired();
 
         }
