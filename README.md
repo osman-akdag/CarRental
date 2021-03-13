@@ -1,3 +1,3 @@
 # CarRental Camp Project
 
-Yazılım kampı çerçevesinde geliştirilen Arabala Kiralama sitesinin Web Api Projesidir.
+Yazılım kampı çerçevesinde geliştirilen Arabala Kiralama sisteminin Web Api Projesidir.
