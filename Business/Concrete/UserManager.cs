@@ -35,12 +35,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<User>(_userDal.Get(p => p.Id == userId));   
         }
-        [SecuredOperation("Admin")]
+        //[SecuredOperation("Admin")]
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
             return new SuccessDataResult<List<OperationClaim>> (_userDal.GetClaims(user));
         }
-        [SecuredOperation("Admin")]
+        
         public IDataResult<User> GetByMail(string email)
         {
             return new SuccessDataResult<User>(_userDal.Get(p=>p.Email==email));
