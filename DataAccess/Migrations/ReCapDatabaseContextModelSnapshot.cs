@@ -24,9 +24,12 @@ namespace DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -75,6 +78,8 @@ namespace DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("OperationClaimId")
@@ -218,7 +223,8 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Core.Entities.Concrete.OperationClaim", "OperationClaim")
                         .WithMany("UserOperationClaims")
-                        .HasForeignKey("OperationClaimId");
+                        .HasForeignKey("OperationClaimId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Core.Entities.Concrete.User", "User")
                         .WithMany("UserOperationClaims")

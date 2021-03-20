@@ -19,10 +19,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         {
             modelBuilder.ApplyConfiguration(new CarMap());
             modelBuilder.ApplyConfiguration(new BrandMap());
-            modelBuilder.ApplyConfiguration(new ColorMap());
-            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new ColorMap());           
             modelBuilder.ApplyConfiguration(new CustomerMap());
             modelBuilder.ApplyConfiguration(new RentalMap());
+
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new OperationClaimMap());
+            modelBuilder.ApplyConfiguration(new UserOperationClaimMap());
         }
 
         public DbSet<Car> Cars { get; set; }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -23,11 +24,12 @@ namespace Business.Concrete
         }
 
         #region Listeleme Metotları
+        [SecuredOperation("Admin")]
         public IDataResult<List<Customer>> GetAll()
         {
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
         }
-
+        [SecuredOperation("Admin")]
         public IDataResult<Customer> GetById(int customerId)
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(p => p.Id == customerId));
@@ -35,6 +37,7 @@ namespace Business.Concrete
         #endregion
 
         #region Temel Ekleme-Silme-Güncelleme
+        [SecuredOperation("Admin")]
         public IResult Add(CustomerAddDto customerAddDto)
         {
             //mapping
@@ -42,12 +45,13 @@ namespace Business.Concrete
             _customerDal.Add(customer);
             return new SuccessResult(Messages.CustomerAdded);
         }
+        [SecuredOperation("Admin")]
         public IResult Delete(Customer customer)
         {
             _customerDal.Delete(customer);
             return new SuccessResult(Messages.CustomerDeleted);
         }
-
+        [SecuredOperation("Admin")]
         public IResult Update(CustomerUpdateDto customerUpdateDto)
         {
             //mapping

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -23,11 +24,12 @@ namespace Business.Concrete
         }
 
         #region Listeleme Metotları
+        [SecuredOperation("Admin")]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
-
+        [SecuredOperation("Admin")]
         public IDataResult<Rental> GetById(int rentalId)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(p => p.Id == rentalId));
@@ -36,6 +38,7 @@ namespace Business.Concrete
         #endregion
 
         #region Temel Ekleme-Silme-Güncelleme
+        [SecuredOperation("Admin")]
         public IResult Add(RentalAddDto rentalAddDto)
         {
             var result = _rentalDal.GetAll(p => p.CarId == rentalAddDto.CarId && p.ReturnDate == null);
@@ -48,14 +51,14 @@ namespace Business.Concrete
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
-
+        [SecuredOperation("Admin")]
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
             return new SuccessResult(Messages.RentalDeleted);
 
         }
-
+        [SecuredOperation("Admin")]
         public IResult Update(RentalUpdateDto rentalUpdateDto)
         {
             //mapper

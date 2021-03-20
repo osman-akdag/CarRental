@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,9 +23,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getAll")]
+        //[Authorize(Roles ="Admin")]
         public IActionResult GetAll()
         {
-
             var result = _colorService.GetAll();
             if (result.Success)
             {

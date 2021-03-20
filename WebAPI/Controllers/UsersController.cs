@@ -46,19 +46,7 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
-
-
-        [HttpPost("add")]
-        public IActionResult Add(UserAddDto userAddDto)
-        {
-            var result = _userService.Add(userAddDto);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
+       
         [HttpPost("update")]
         public IActionResult Update(UserUpdateDto userUpdateDto)
         {

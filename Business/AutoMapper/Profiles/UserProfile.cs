@@ -12,6 +12,7 @@ namespace Business.AutoMapper.Profiles
         public UserProfile()
         {
             CreateMap<UserAddDto, User>();
+            CreateMap<User, UserAddDto>();
             CreateMap<UserUpdateDto, User>();
         }
     }
