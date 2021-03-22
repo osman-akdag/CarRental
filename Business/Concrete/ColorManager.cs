@@ -2,6 +2,8 @@
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Extensions;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -41,7 +43,8 @@ namespace Business.Concrete
         #endregion
 
         #region Temel Ekleme-Silme-Güncelleme
-        [SecuredOperation("Admin")]
+        //[SecuredOperation("Admin")]
+        [ValidationAspect(typeof(ColorAddDtoValidator))]
         public IResult Add(ColorAddDto colorAddDto)
         {
             //mapping

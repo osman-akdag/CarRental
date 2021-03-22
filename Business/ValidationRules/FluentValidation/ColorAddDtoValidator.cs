@@ -8,6 +8,7 @@ namespace Business.ValidationRules.FluentValidation
         public ColorAddDtoValidator()   
         {
             // rules
+            RuleFor(p => p.Name).NotEmpty();
         }
     }
 }
