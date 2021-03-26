@@ -3,7 +3,9 @@ using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -28,18 +30,21 @@ namespace Business.Concrete
 
         #region Listeleme Metotları
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
 
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<Brand> GetById(int brandId)
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(p => p.Id == brandId));
         }
 
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Brand>> GetAllWithCars()
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAllWithCars());
@@ -51,6 +56,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin")]
         [ValidationAspect(typeof(BrandAddDtoValidator))]
+        [LogAspect(typeof(FileLogger))]
         public IResult Add(BrandAddDto brandAddDto)
         {
             //mapping
@@ -59,12 +65,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandAdded);
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
             return new SuccessResult(Messages.BrandDeleted);
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Update(BrandUpdateDto brandUpdateDto)
         {
             //mapping

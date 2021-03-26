@@ -2,6 +2,8 @@
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -25,11 +27,13 @@ namespace Business.Concrete
 
         #region Listeleme Metotları
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<Rental> GetById(int rentalId)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(p => p.Id == rentalId));
@@ -39,6 +43,7 @@ namespace Business.Concrete
 
         #region Temel Ekleme-Silme-Güncelleme
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Add(RentalAddDto rentalAddDto)
         {
             var result = _rentalDal.GetAll(p => p.CarId == rentalAddDto.CarId && p.ReturnDate == null);
@@ -52,6 +57,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentalAdded);
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
@@ -59,6 +65,7 @@ namespace Business.Concrete
 
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Update(RentalUpdateDto rentalUpdateDto)
         {
             //mapper

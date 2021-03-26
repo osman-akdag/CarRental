@@ -2,6 +2,8 @@
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -25,11 +27,13 @@ namespace Business.Concrete
 
         #region Listeleme Metotları
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Customer>> GetAll()
         {
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<Customer> GetById(int customerId)
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(p => p.Id == customerId));
@@ -38,6 +42,7 @@ namespace Business.Concrete
 
         #region Temel Ekleme-Silme-Güncelleme
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Add(CustomerAddDto customerAddDto)
         {
             //mapping
@@ -46,12 +51,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CustomerAdded);
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Delete(Customer customer)
         {
             _customerDal.Delete(customer);
             return new SuccessResult(Messages.CustomerDeleted);
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Update(CustomerUpdateDto customerUpdateDto)
         {
             //mapping

@@ -2,6 +2,8 @@
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -26,16 +28,19 @@ namespace Business.Concrete
         #region Listeleme metotları
 
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<Car> GetById(int carId)
         {
             return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == carId));
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<CarDetailDto>> GetAllByCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllByCarDetails());
@@ -45,6 +50,7 @@ namespace Business.Concrete
 
         #region Temel Ekleme-Silme-Güncelleme
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Add(CarAddDto carAddDto)
         {
             // mapping
@@ -53,12 +59,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarAdded);
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
         [SecuredOperation("Admin")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Update(CarUpdateDto carUpdateDto)
         {
             //mapping

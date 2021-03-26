@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
@@ -32,6 +34,7 @@ namespace Business.Concrete
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
 
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<User> Login(UserLoginDto userLoginDto)
         {
 
@@ -49,6 +52,7 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(userToCheck,Messages.SuccessfulLogin);
         }
 
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<User> Register(UserRegisterDto userRegisterDto)  
         {
             byte[] passwordHash, passwordSalt;
