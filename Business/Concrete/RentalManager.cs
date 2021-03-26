@@ -4,6 +4,7 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Aspects.Autofac.Logging;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -46,12 +47,13 @@ namespace Business.Concrete
         [LogAspect(typeof(FileLogger))]
         public IResult Add(RentalAddDto rentalAddDto)
         {
-            var result = _rentalDal.GetAll(p => p.CarId == rentalAddDto.CarId && p.ReturnDate == null);
-            if (result.Count > 0)
+            //Business rules
+            IResult result = BusinessRules.Run(CheckIfCarIsRented(rentalAddDto));
+            if (result!=null)
             {
-                return new ErrorResult(Messages.RentalReturnDateError);
+                return result;
             }
-            //mapper
+            // mapper
             Rental rental = _mapper.Map<Rental>(rentalAddDto);
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
@@ -76,5 +78,21 @@ namespace Business.Concrete
 
         #endregion
 
+
+        #region Business Rules
+
+        private IResult CheckIfCarIsRented(RentalAddDto rentalAddDto)
+        {
+            // İlgili aracın dönüş tarihi varsa - Araç kiralanmış
+            var result = _rentalDal.GetAll(p => p.CarId == rentalAddDto.CarId && p.ReturnDate != null);
+            if (result.Count > 0)
+            {
+                return new ErrorResult(Messages.RentalReturnDateError);
+            }
+            return new SuccessResult();
+        }
     }
+
+    #endregion
+
 }
