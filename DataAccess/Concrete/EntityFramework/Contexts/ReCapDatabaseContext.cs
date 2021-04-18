@@ -22,6 +22,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
             modelBuilder.ApplyConfiguration(new ColorMap());           
             modelBuilder.ApplyConfiguration(new CustomerMap());
             modelBuilder.ApplyConfiguration(new RentalMap());
+            modelBuilder.ApplyConfiguration(new CarImageMap());
 
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new OperationClaimMap());
@@ -33,6 +34,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<Color> Colors { get; set; }    
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Rental> Rentals { get; set; }
+        public DbSet<CarImage> CarImages { get; set; }
 
         public DbSet<User> Users { get; set; }  
         public DbSet<OperationClaim> OperationClaims { get; set; }

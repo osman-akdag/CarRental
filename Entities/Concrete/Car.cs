@@ -20,5 +20,6 @@ namespace Entities.Concrete
 
         // 1 araba 1 den çok kiralanabilir.
         public List<Rental> Rentals { get; set; }
+        public List<CarImage> CarImages { get; set; }   
     }
 }

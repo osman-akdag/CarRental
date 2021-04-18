@@ -16,6 +16,7 @@ namespace DataAccess.Concrete.EntityFramework.Mapping
             builder.Property(i => i.Description).IsRequired(false);
 
             builder.HasMany(i => i.Rentals).WithOne(i => i.Car).HasForeignKey(i => i.CarId).OnDelete(DeleteBehavior.SetNull);
+            builder.HasMany(i => i.CarImages).WithOne(i => i.Car).HasForeignKey(i => i.CarId).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
